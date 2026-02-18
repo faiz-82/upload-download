@@ -1,0 +1,26 @@
+name: Upload TF Vars
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  upload-tfvars:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Create terraform.tfvars (Example)
+        run: |
+          echo 'project_id = "my-project"' > terraform.tfvars
+          echo 'region     = "us-central1"' >> terraform.tfvars
+
+      - name: Upload tfvars as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfvars-artifact
+          path: terraform.tfvars
+          retention-days: 1
