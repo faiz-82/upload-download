@@ -1,0 +1,26 @@
+name: Download TF Vars
+
+on:
+  workflow_run:
+    workflows: ["Upload TF Vars"]
+    types:
+      - completed
+
+jobs:
+  download-tfvars:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Download tfvars Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tfvars-artifact
+
+      - name: Verify File
+        run: |
+          ls -la
+          cat terraform.tfvars
