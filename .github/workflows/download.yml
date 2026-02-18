@@ -25,3 +25,8 @@ jobs:
         run: |
           ls -la
           cat terraform.tfvars
+
+      - name: Content
+        run: |
+          source terraform.tfvars
+          cat terraform.tfvars
