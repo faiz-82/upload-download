@@ -17,16 +17,14 @@ jobs:
       - name: Download artifact from previous workflow
         uses: dawidd6/action-download-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
           run_id: ${{ github.event.workflow_run.id }}
           name: tfvars-artifact
+          path: .
 
       - name: Verify
         run: |
           ls -la
+          find . -name "terraform.tfvars"
           cat terraform.tfvars
 
-      - name: Content
-        run: |
-          source terraform.tfvars
-          cat terraform.tfvars
