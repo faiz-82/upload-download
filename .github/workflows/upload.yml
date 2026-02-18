@@ -3,7 +3,7 @@ name: Upload TF Vars
 on:
   push:
     branches:
-      - main
+      - feature1
 
 jobs:
   upload:
